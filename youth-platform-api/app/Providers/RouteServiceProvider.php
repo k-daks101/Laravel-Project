@@ -8,6 +8,13 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 class RouteServiceProvider extends ServiceProvider
 {
     /**
+     * The path to the "home" route for your application.
+     *
+     * Typically used after authentication.
+     */
+    public const HOME = '/dashboard'; // or use '/' if no dashboard
+
+    /**
      * Define your route model bindings, pattern filters, etc.
      */
     public function boot(): void
