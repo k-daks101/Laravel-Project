@@ -59,7 +59,7 @@ class OpportunityController extends Controller
         $validated = $request->validate([
             'name' => 'sometimes|required|string',
             'description' => 'nullable|string',
-            'url' => 'sometimes|required|url',
+            'url' => 'sometimes|required|url|unique:opportunities,url', //ensures uniqueness
             'qualification' => 'nullable|string',
             'region' => 'nullable|string',
             'deadline' => 'nullable|date',
