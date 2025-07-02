@@ -9,9 +9,24 @@ class OpportunityController extends Controller
 
 {
     // GET /api/opportunities
-    public function index()
+    public function index(Request $request)
+
     {
-        return response()->json(Opportunity::all(), 200);
+        $query = Opportunity::query();
+
+        if ($request->has('type')) {
+            $query->where('type', $request->type);
+        }
+
+        if ($request->has('region')) {
+            $query->where('country_region', $request->region);
+        }
+
+        if ($request->has('status')) {
+            $query->where('status', $request->status); // Add 'status' column to the table if needed
+        }
+
+        return response()->json($query->get(), 200);
     }
 
     // GET /api/opportunities/{id}
@@ -33,10 +48,11 @@ class OpportunityController extends Controller
             'name' => 'required|string',
             'description' => 'nullable|string',
             'url' => 'required|url',
-            'qualification' => 'nullable|string',
-            'region' => 'nullable|string',
+            'county_region' => 'nullable|string',
             'deadline' => 'nullable|date',
-            'type' => 'required|in:Scholarship,Job,Training'
+            'type' => 'required|in:Scholarship,Job,Training',
+            'status' => 'required|in:active,closed,expired'
+
         ]);
 
         $opportunity = Opportunity::create($validated);
@@ -60,10 +76,11 @@ class OpportunityController extends Controller
             'name' => 'sometimes|required|string',
             'description' => 'nullable|string',
             'url' => 'sometimes|required|url|unique:opportunities,url', //ensures uniqueness
-            'qualification' => 'nullable|string',
             'region' => 'nullable|string',
             'deadline' => 'nullable|date',
-            'type' => 'sometimes|required|in:Scholarship,Job,Training'
+            'type' => 'sometimes|required|in:Scholarship,Job,Training',
+            'status' => 'sometimes|required|in:active,closed,expired'
+
         ]);
 
         $opportunity->update($validated);
@@ -88,4 +105,3 @@ class OpportunityController extends Controller
         return response()->json(['message' => 'Opportunity deleted successfully'], 200);
     }
 }
-
