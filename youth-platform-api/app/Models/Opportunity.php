@@ -13,9 +13,9 @@ class Opportunity extends Model
         'name',
         'description',
         'url',
-        'qualification',
-        'region',
+        'country_region',
         'deadline',
         'type',
+        'status'
     ];
 }
