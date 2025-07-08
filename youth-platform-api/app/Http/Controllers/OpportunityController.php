@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Models\Opportunity;
 
 class OpportunityController extends Controller
@@ -44,11 +45,14 @@ class OpportunityController extends Controller
     // POST /api/opportunities
     public function store(Request $request)
     {
+
+        Log::info($request->all());
+
         $validated = $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
             'url' => 'required|url',
-            'county_region' => 'nullable|string',
+            'country_region' => 'nullable|string',
             'deadline' => 'nullable|date',
             'type' => 'required|in:Scholarship,Job,Training',
             'status' => 'required|in:active,closed,expired'
@@ -76,7 +80,7 @@ class OpportunityController extends Controller
             'name' => 'sometimes|required|string',
             'description' => 'nullable|string',
             'url' => 'sometimes|required|url|unique:opportunities,url', //ensures uniqueness
-            'region' => 'nullable|string',
+            'country_region' => 'nullable|string',
             'deadline' => 'nullable|date',
             'type' => 'sometimes|required|in:Scholarship,Job,Training',
             'status' => 'sometimes|required|in:active,closed,expired'
