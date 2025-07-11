@@ -51,10 +51,12 @@ class OpportunityController extends Controller
         $validated = $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
-            'url' => 'required|url',
+            'url' => 'required|url|unique:opportunities,url',
+            'criteria' => 'nullable|string',
             'country_region' => 'nullable|string',
             'deadline' => 'nullable|date',
             'type' => 'required|in:Scholarship,Job,Training',
+            'funding_salary' => 'nullable|string',
             'status' => 'required|in:active,closed,expired'
 
         ]);
