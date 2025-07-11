@@ -13,9 +13,11 @@ class Opportunity extends Model
         'name',
         'description',
         'url',
+        'criteria',
         'country_region',
         'deadline',
         'type',
+        'funding_salary',
         'status'
     ];
 }
